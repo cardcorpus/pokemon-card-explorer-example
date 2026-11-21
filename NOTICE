@@ -1,0 +1,13 @@
+Pokémon card explorer, an example app for the CardCorpus API
+Copyright 2026 The CardCorpus Authors
+
+The code in this repository is licensed under the MIT License (LICENSE).
+The data it shows comes from the CardCorpus API at runtime and is licensed
+under CC BY 4.0 (https://github.com/cardcorpus/pokemon-card-dataset).
+
+Pokémon and Pokémon character names are trademarks of Nintendo, Creatures
+and GAME FREAK. Card pictures and text are © The Pokémon Company,
+Nintendo, Creatures, GAME FREAK and, for older cards, Wizards of the
+Coast. This project is not produced, endorsed, sponsored or supported by,
+or affiliated with, any of them. The licence above covers the CardCorpus
+Authors' own work and grants no rights in theirs.
