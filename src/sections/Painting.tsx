@@ -3,7 +3,7 @@ import CardGrid from "../components/CardGrid";
 import Section from "../components/Section";
 
 // The picture on the card, wherever it was printed: `painting`.
-// A painting's file is under the set that printed it first: the pointer names it.
+// A painting's file is named by its own id, paintings/{id}.json; `firstPrint` in it is the card that printed it first.
 // Its `cards` list its prints, one list for each different card that uses the picture.
 export default function Painting({ card }: { card: Card }) {
   const found = usePainting(card);

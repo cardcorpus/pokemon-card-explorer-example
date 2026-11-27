@@ -17,7 +17,7 @@ Each page is one file in `src/pages`, with its route in `src/App.tsx`.
 | Page | File | Request |
 | --- | --- | --- |
 | The sets of a catalog | `SetsPage.tsx` | `index.json`, `sets/{catalog}.json` |
-| A set's cards | `SetPage.tsx` | `sets/{catalog}/{slug}.json` |
+| A set's cards, and its sets in other languages | `SetPage.tsx` | `sets/{catalog}/{slug}.json`, then `sets/{catalog}.json` for each language it links to |
 | A card | `CardPage.tsx` | none: the card is in the set's file |
 | A Pokémon's cards | `PokemonPage.tsx` | `pokemon-cards/{catalog}/{dex}.json`, `pokemon.json` |
 | An artist's cards | `ArtistPage.tsx` | `artists/{catalog}/{id}.json`, `artists.json` |
@@ -48,14 +48,16 @@ comment the line out and the section is gone.
 
 | Line | Shows | Reads |
 | --- | --- | --- |
+| `<CardText card={card} />` | What the card prints, word for word: HP, attacks, abilities, trainer text, rules, weakness, flavor | the card's entry in `text/{set}.json` |
 | `<Pieces card={card} />` | The halves of a LEGEND or quarters of a V-UNION, put together | `card.pieces` |
 | `<People card={card} />` | Links to the card's Pokémon, characters and artist | `card.species`, `card.characters`, `card.artists` |
 | `<Variants card={card} />` | Every version of the card: 1st Edition, reverse holo, stamped promos | `card.variants` |
 | `<Prices card={card} />` | Today's price of each variant | `prices.cardcorpus.com/{set}.json` |
 | `<PriceHistory card={card} />` | A chart of its price each day | `prices.cardcorpus.com/history/{set}/{card}.json` |
-| `<Languages card={card} />` | The same card in other languages | `card.links.counterparts` |
-| `<Reprints card={card} />` | The same card printed again later, and what changed | `card.links.reprints`, `card.links.reprintOf` |
-| `<Painting card={card} />` | Every print of the picture, grouped by the card it is on | `card.links.painting`, `paintings/{set}.json` |
+| `<Languages card={card} />` | The same card in other languages | `links.counterparts` of the card's print in `paintings/{id}.json` |
+| `<Reprints card={card} />` | The same card printed again later, and what changed | `links.reprints`, `links.reprintOf` of the card's print in `paintings/{id}.json` |
+| `<Painting card={card} />` | Every print of the picture, grouped by the card it is on | `card.painting`, `paintings/{id}.json` |
+| `<Play card={card} />` | Every card that plays the same whatever its picture, and the official errata it follows | `card.play`, `plays/{id}.json` |
 
 Good cards to try: `/sets/english/base-set/4` (Charizard: seven variants,
 eight reprints) and `/sets/english/evolutions/11` (a different card with
@@ -64,7 +66,7 @@ the same picture).
 ## About
 
 This is an example app for the [CardCorpus](https://cardcorpus.com) API, an
-open dataset of Pokémon TCG cards in English, Japanese and Chinese.
+open dataset of Pokémon TCG cards in every language they have been printed in.
 
 - The data: [cardcorpus/pokemon-card-dataset](https://github.com/cardcorpus/pokemon-card-dataset)
   (the same files the app fetches, browsable and downloadable in one zip)

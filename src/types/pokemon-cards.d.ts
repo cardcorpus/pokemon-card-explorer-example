@@ -227,7 +227,7 @@ export interface CardSummary {
      */
     sort: string;
     /**
-     * `true` where the card's own date is an estimate: no page dates the card itself, so its year is borrowed from another language's print or worked out from its neighbours, its copyright line or its product (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates). Absent otherwise.
+     * `true` where the card's date is an estimate: no page dates the card itself, so its year is borrowed from another language's print or worked out from its neighbours, its copyright line or its product, or it takes its set's date, which is one (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates). Absent otherwise.
      */
     inferred?: true;
   };

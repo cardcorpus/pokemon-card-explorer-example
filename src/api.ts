@@ -13,6 +13,8 @@ import type { CardCorpusCharacter } from "./types/character";
 import type { CardCorpusVocabulary } from "./types/vocabulary";
 import type { CardCorpusPricesOfASet } from "./types/prices";
 import type { CardCorpusPriceHistoryOfACard } from "./types/price-history";
+import type { CardCorpusPrintedTextOfASet } from "./types/text";
+import type { CardCorpusPlay } from "./types/play";
 
 export const API = "https://pokemon.cardcorpus.com/v1";
 const PRICES = "https://prices.cardcorpus.com";
@@ -39,7 +41,7 @@ type File<Path extends keyof Files> = Path extends `sets/${Catalog}.json` ? Card
 
 // Shorter names for the parts the app passes around.
 // CardSummary is a card as every list has it; Card is the whole card, in its set's file.
-export type { Card, CardSummary, Variant };
+export type { Card, CardCorpusSet, CardSummary, Variant };
 // A set as the lists of sets have it.
 export type SetSummary = CardCorpusSetsOfACatalog["sets"][number];
 export type CardPointer = { set: string; id: string };
@@ -99,6 +101,20 @@ export function useLinks(card: Card) {
 export function useLinkedCard(pointer: CardPointer, from: Card): CardSummary | undefined {
   const painting = usePainting(from);
   return painting && printIn(painting, pointer);
+}
+
+// What a card prints, word for word, from its set's text file, text/{set}.json.
+// Not every set has one yet, and a set's file leaves out cards not yet read.
+export function useCardText(card: Card) {
+  const file = useJson<CardCorpusPrintedTextOfASet | undefined>(`${API}/text/${card.set}.json`, true);
+  return file?.cards.find((entry) => entry.id === card.id);
+}
+
+// The cards that play the same as this one, whatever their picture. Only a card
+// in a play of more than one card names one (English cards only, for now).
+export function usePlay(card: Card) {
+  // `use`, unlike other hooks, may be called conditionally.
+  return card.play ? (use(getJson(`${API}/plays/${card.play.id}.json`)) as CardCorpusPlay) : undefined;
 }
 
 // An image is an id. Copies are 240, 480 or 960 px wide.

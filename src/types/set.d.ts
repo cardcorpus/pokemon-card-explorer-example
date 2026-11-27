@@ -323,6 +323,19 @@ export type Card = CardSummary & {
      */
     id: string;
   }[];
+  /**
+   * The cards that play the same as it, whatever their picture, where there are others: the same name and text that works the same, so one may stand in for another in a deck. Its file (plays/{id}.json) lists them all. English cards only, for now (https://pokemon.cardcorpus.com/v1/docs/guide.md#plays).
+   */
+  play?: {
+    /**
+     * What the pointer points at: `play`. index.json's `pointers` say where to find it (https://pokemon.cardcorpus.com/v1/docs/guide.md#pointers).
+     */
+    $kind: "play";
+    /**
+     * The play's own id: its cards' English name and a short code, such as `switch-4175`. It stays the same as cards join the play.
+     */
+    id: string;
+  };
 };
 /**
  * Every value of vocabulary.json's `rarity`.
@@ -479,8 +492,8 @@ export type Stamp =
   | "pokemon_tcg_gym_stamp"
   | "infernape_silhouette_stamp"
   | "mewtwo_silhouette_stamp"
-  | "event_organizer_logo"
   | "pokemon_center_stamp"
+  | "event_organizer_logo"
   | "extra_battle_day_stamp"
   | "1st_place_league_challenge_stamp"
   | "2nd_place_league_challenge_stamp"
@@ -558,6 +571,7 @@ export type Stamp =
   | "champion_world_championships_stamp"
   | "cobalion_silhouette_stamp"
   | "keldeo_silhouette_stamp"
+  | "kfc_stamp"
   | "meloetta_silhouette_stamp"
   | "pikachu_tail_stamp"
   | "pokemon_the_first_movie_stamp"
@@ -590,7 +604,6 @@ export type Stamp =
   | "world_championships_2025_stamp"
   | "challenge_pokemon_trainer_stamp"
   | "infinity_zone_stamp"
-  | "kfc_stamp"
   | "korean_league_2026_stamp"
   | "league_zone_stamp"
   | "legendary_pokemon_stamp"
@@ -635,6 +648,7 @@ export type Stamp =
   | "battle_festa_2015_corocoro_challenge_stamp"
   | "champion_guangzhou_master_tournament_stamp"
   | "cinderace_15_silhouette_stamp"
+  | "collectors_set_stamp"
   | "koleksi_tag_team_stamp"
   | "lizardon_mega_battle_stamp"
   | "manaphy_movie_stamp"
@@ -643,6 +657,7 @@ export type Stamp =
   | "pokemon_horizons_stamp"
   | "premier_ball_league_stamp"
   | "regional_league_indonesia_stamp"
+  | "regional_league_taiwan_stamp"
   | "snivy_1_silhouette_stamp"
   | "snivy_30_silhouette_stamp"
   | "sprigatito_10_silhouette_stamp"
@@ -739,6 +754,7 @@ export type Stamp =
   | "pikachu_58_silhouette_stamp"
   | "pikachu_59_silhouette_stamp"
   | "pikachu_60_silhouette_stamp"
+  | "pizza_hut_stamp"
   | "pokemon_anime_stamp"
   | "pokemon_smile_school_stamp"
   | "pokeween_2026_stamp"
@@ -773,6 +789,7 @@ export type Stamp =
   | "snivy_7_silhouette_stamp"
   | "snivy_8_silhouette_stamp"
   | "start_deck_100_stamp"
+  | "summer_rally_2022_hong_kong_stamp"
   | "team_battle_stamp"
   | "tepig_11_silhouette_stamp"
   | "tepig_12_silhouette_stamp"
@@ -842,6 +859,7 @@ export type Stamp =
   | "alolan_sandslash_27_circle_stamp"
   | "alolan_sandslash_29_circle_stamp"
   | "alolan_sandslash_4_circle_stamp"
+  | "asia_championship_series_2024_2025_stamp"
   | "astral_radiance_stamp"
   | "battle_carnival_2011_stamp"
   | "battle_carnival_2012_spring_stamp"
@@ -1012,7 +1030,6 @@ export type Stamp =
   | "regional_league_malaysia_stamp"
   | "regional_league_philippines_stamp"
   | "regional_league_singapore_stamp"
-  | "regional_league_taiwan_stamp"
   | "school_festa_2018_stamp"
   | "silver_tempest_stamp"
   | "sprigatito_14_silhouette_stamp"
@@ -1203,11 +1220,11 @@ export type Stamp =
   | "armarouge_7_silhouette_stamp"
   | "armarouge_8_silhouette_stamp"
   | "armarouge_9_silhouette_stamp"
-  | "asia_championship_series_2024_2025_stamp"
   | "battle_carnival_2012_autumn_stamp"
   | "battle_road_autumn_2003_stamp"
   | "battle_road_autumn_2005_stamp"
   | "battle_road_summer_2006_stamp"
+  | "beginners_classroom_stamp"
   | "blazing_fighter_cold_rebel_stamp"
   | "bulbasaur_silhouette_first_pokemon_stamp"
   | "bulbasaur_silhouette_starting_energy_stamp"
@@ -1263,6 +1280,7 @@ export type Stamp =
   | "champions_league_certified_tournament_stamp"
   | "championship_series_2020_stamp"
   | "championship_series_2021_stamp"
+  | "championships_taiwan_stamp"
   | "charizard_10_silhouette_stamp"
   | "charizard_11_silhouette_stamp"
   | "charizard_12_silhouette_stamp"
@@ -1403,6 +1421,7 @@ export type Stamp =
   | "dragon_storm_stamp"
   | "dream_league_stamp"
   | "e3_stamp"
+  | "elite_four_finals_stamp"
   | "excavator_pikachu_stamp"
   | "fairy_rise_stamp"
   | "fennekin_10_silhouette_stamp"
@@ -1463,6 +1482,7 @@ export type Stamp =
   | "mewtwo_16_silhouette_stamp"
   | "mewtwo_1_silhouette_stamp"
   | "mewtwo_strikes_back_evolution_movie_stamp"
+  | "n_portrait_stamp"
   | "nintendo_world_stamp"
   | "pikachu_silhouette_first_pokemon_stamp"
   | "pikachu_silhouette_starting_energy_stamp"
@@ -1478,6 +1498,7 @@ export type Stamp =
   | "pokemon_day_2024_stamp"
   | "pokemon_kids_best_wishes_stamp"
   | "pokemon_rocks_america_stamp"
+  | "pokemon_run_stamp"
   | "pokemon_sun_moon_serial_code_stamp"
   | "poketour_1999_stamp"
   | "pokeween_2025_stamp"
@@ -1717,13 +1738,17 @@ export interface CardCorpusSet {
    */
   cardCount: number;
   /**
-   * When the set came out came out, as precisely as is known (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates).
+   * When the set came out, as precisely as is known (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates).
    */
   released?: {
     /**
      * The date: 1999, 1999-06 or 1999-06-16.
      */
     date?: string;
+    /**
+     * `true` where the date is an estimate: no page dates the set's print in its language, so its year is borrowed from another language's print (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates). Absent otherwise.
+     */
+    inferred?: true;
   };
   /**
    * The set code it prints.
@@ -1854,7 +1879,7 @@ export interface CardCorpusSet {
    */
   backImage?: string;
   /**
-   * The set's links to other sets.
+   * The set's links to other sets, in the order to show them: by `relation` (`equivalent`, `merged_into`, `subset_of`, `companion`), outgoing before incoming, by catalog in the vocabulary's order, then the most cards in common first.
    */
   links?: {
     /**
@@ -1865,6 +1890,10 @@ export interface CardCorpusSet {
      * The set's id (sets/{catalog}.json).
      */
     id: string;
+    /**
+     * The catalog the other set is in: whether it is in another language, and which, without reading its id.
+     */
+    catalog: Catalog;
     /**
      * What the other set is to this one.
      */
@@ -1953,7 +1982,7 @@ export interface CardSummary {
      */
     sort: string;
     /**
-     * `true` where the card's own date is an estimate: no page dates the card itself, so its year is borrowed from another language's print or worked out from its neighbours, its copyright line or its product (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates). Absent otherwise.
+     * `true` where the card's date is an estimate: no page dates the card itself, so its year is borrowed from another language's print or worked out from its neighbours, its copyright line or its product, or it takes its set's date, which is one (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates). Absent otherwise.
      */
     inferred?: true;
   };

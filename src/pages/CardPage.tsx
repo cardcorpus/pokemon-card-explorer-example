@@ -10,6 +10,8 @@ import Prices from "../sections/Prices";
 import PriceHistory from "../sections/PriceHistory";
 import People from "../sections/People";
 import Pieces from "../sections/Pieces";
+import CardText from "../sections/CardText";
+import Play from "../sections/Play";
 
 // One card. It is already in the set's file, so no new request.
 // Each section below is one component in src/sections: comment a line out to drop it.
@@ -49,6 +51,7 @@ export default function CardPage() {
       {/* Some sections fetch more files. The card shows at once; they follow. */}
       <ErrorBoundary>
         <Suspense fallback={<p className="mt-10">Loading…</p>}>
+          <CardText card={card} />
           <People card={card} />
           <Pieces card={card} />
           <Variants card={card} />
@@ -57,6 +60,7 @@ export default function CardPage() {
           <Languages card={card} />
           <Reprints card={card} />
           <Painting card={card} />
+          <Play card={card} />
         </Suspense>
       </ErrorBoundary>
     </>

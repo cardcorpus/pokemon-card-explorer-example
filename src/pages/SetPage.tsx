@@ -1,11 +1,15 @@
 import { useParams } from "react-router-dom";
 import { imageUrl, useApi } from "../api";
+import { Suspense } from "react";
 import CardGrid from "../components/CardGrid";
+import ErrorBoundary from "../components/ErrorBoundary";
+import SetLanguages from "../sections/SetLanguages";
 
 // One set and its cards. One request: sets/{catalog}/{slug}.json
 // Its logo and symbol are pictures like a card's; its description is text.
 // `backImage` is the back its cards share, where that is not the usual one.
 // `printedCode` is the set code and language mark its cards print ("PBL FR").
+// Above its cards, the sets in other languages it is linked to (src/sections/SetLanguages.tsx).
 export default function SetPage() {
   const { catalog, slug } = useParams();
   const setId = `${catalog}/${slug}`;
@@ -33,6 +37,12 @@ export default function SetPage() {
         </div>
       )}
       <div className="clear-both" />
+      {/* The same set, or sets sharing its cards, in other languages: one more request a language. */}
+      <ErrorBoundary>
+        <Suspense fallback={<p className="mb-8">Loading…</p>}>
+          <SetLanguages set={set} />
+        </Suspense>
+      </ErrorBoundary>
       <CardGrid cards={set.cards ?? []} />
     </>
   );

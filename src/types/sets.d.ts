@@ -149,13 +149,17 @@ export interface CardCorpusSetsOfACatalog {
      */
     cardCount: number;
     /**
-     * When the set came out came out, as precisely as is known (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates).
+     * When the set came out, as precisely as is known (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates).
      */
     released?: {
       /**
        * The date: 1999, 1999-06 or 1999-06-16.
        */
       date?: string;
+      /**
+       * `true` where the date is an estimate: no page dates the set's print in its language, so its year is borrowed from another language's print (https://pokemon.cardcorpus.com/v1/docs/guide.md#release-dates). Absent otherwise.
+       */
+      inferred?: true;
     };
     /**
      * The set code it prints.
