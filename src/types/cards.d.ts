@@ -164,9 +164,9 @@ export interface CardCorpusCardList {
       short: string;
     };
     /**
-     * A copy of the target's own `rarity`. Its rarity, as its mark reads (https://pokemon.cardcorpus.com/v1/docs/guide.md#rarity).
+     * A copy of the target's own `rarity`. Its rarity, as its mark reads (https://pokemon.cardcorpus.com/v1/docs/guide.md#rarity). Null where the card prints no rarity mark (a deck card, a McDonald's card, a Basic Energy); absent where we don't know its rarity yet.
      */
-    rarity?: Rarity;
+    rarity?: (Rarity | null) & (((Rarity | null) & string) | ((Rarity | null) & null));
     /**
      * A copy of the target's own `cardType`. Pokémon, Trainer or Energy.
      */

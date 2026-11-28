@@ -352,9 +352,9 @@ export interface CardSummary {
     short: string;
   };
   /**
-   * Its rarity, as its mark reads (https://pokemon.cardcorpus.com/v1/docs/guide.md#rarity).
+   * Its rarity, as its mark reads (https://pokemon.cardcorpus.com/v1/docs/guide.md#rarity). Null where the card prints no rarity mark (a deck card, a McDonald's card, a Basic Energy); absent where we don't know its rarity yet.
    */
-  rarity?: Rarity;
+  rarity?: (Rarity | null) & (((Rarity | null) & string) | ((Rarity | null) & null));
   /**
    * Pokémon, Trainer or Energy.
    */
